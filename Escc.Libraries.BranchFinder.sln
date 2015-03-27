@@ -27,8 +27,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsccWebTeam.Cms", "..\Escc.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escc.Elibrary", "..\Escc.Elibrary\Escc.Elibrary.csproj", "{3D2240E0-D165-4C52-A97B-730542975D3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escc.Geo", "..\Escc.Geo\Escc.Geo\Escc.Geo.csproj", "{E8E262B5-A2E8-460F-B65D-E53BF94A0EAF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{4BA6A1F0-4A6A-45D9-B826-FDD0AED2B424}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
@@ -117,12 +115,6 @@ Global
 		{3D2240E0-D165-4C52-A97B-730542975D3A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3D2240E0-D165-4C52-A97B-730542975D3A}.UAT|Any CPU.ActiveCfg = Release|Any CPU
 		{3D2240E0-D165-4C52-A97B-730542975D3A}.UAT|Any CPU.Build.0 = Release|Any CPU
-		{E8E262B5-A2E8-460F-B65D-E53BF94A0EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8E262B5-A2E8-460F-B65D-E53BF94A0EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8E262B5-A2E8-460F-B65D-E53BF94A0EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8E262B5-A2E8-460F-B65D-E53BF94A0EAF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E8E262B5-A2E8-460F-B65D-E53BF94A0EAF}.UAT|Any CPU.ActiveCfg = Release|Any CPU
-		{E8E262B5-A2E8-460F-B65D-E53BF94A0EAF}.UAT|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

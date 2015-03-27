@@ -43,6 +43,10 @@
     <Reference Include="Escc.Exceptions.Soap">
       <HintPath>..\packages\Escc.Exceptions.Soap.1.0.0\lib\Escc.Exceptions.Soap.dll</HintPath>
     </Reference>
+    <Reference Include="Escc.Geo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Escc.Geo.1.0.0.0\lib\Escc.Geo.dll</HintPath>
+    </Reference>
     <Reference Include="Exceptionless.Extras">
       <HintPath>..\packages\Exceptionless.Web.2.0.1283\lib\net45\Exceptionless.Extras.dll</HintPath>
     </Reference>
@@ -137,10 +141,6 @@
     <ProjectReference Include="..\..\Escc.FormControls\EsccWebTeam.FormControls.csproj">
       <Project>{e6d5883f-99ce-4bf5-974a-66c542c43cfb}</Project>
       <Name>EsccWebTeam.FormControls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Escc.Geo\Escc.Geo\Escc.Geo.csproj">
-      <Project>{e8e262b5-a2e8-460f-b65d-e53bf94a0eaf}</Project>
-      <Name>Escc.Geo</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Escc.NavigationControls\EsccWebTeam.NavigationControls.csproj">
       <Project>{0323f668-1723-44a1-8c94-f91dc59ef315}</Project>

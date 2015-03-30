@@ -99,6 +99,7 @@
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
     <Compile Include="FakeLibraryDataSource.cs" />
+    <Compile Include="FakePostcodeLookup.cs" />
     <Compile Include="ILibraryDataSource.cs" />
     <Compile Include="IPostcodeLookup.cs" />
     <Compile Include="LibraryDataFormat.cs" />

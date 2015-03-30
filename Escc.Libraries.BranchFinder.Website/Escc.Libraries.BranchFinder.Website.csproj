@@ -119,10 +119,12 @@
     <Compile Include="UmbracoLibraryDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="img\libraries.psd" />
+    <None Include="img\libraries.psd" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="img\web.config" />
+    <None Include="img\web.example.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Escc.Data.Web\EsccWebTeam.Data.Web.csproj">
@@ -153,9 +155,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.example.config">
+    <None Include="Web.example.config">
       <SubType>Designer</SubType>
-    </Content>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

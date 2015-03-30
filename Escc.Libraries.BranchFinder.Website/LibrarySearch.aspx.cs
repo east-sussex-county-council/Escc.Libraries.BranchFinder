@@ -52,8 +52,13 @@ namespace Escc.Libraries.BranchFinder.Website
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#"), 
+        System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
         public static string RenderLibraryUrl(string locationType, string url)
         {
+            if (locationType == null) throw new ArgumentNullException("locationType");
+            if (url == null) throw new ArgumentNullException("url");
+
             if (locationType.ToUpperInvariant().StartsWith("MOBILE", StringComparison.Ordinal))
             {
                 url = ConfigurationManager.AppSettings["MobileLibraryTimesUrl"];
@@ -71,6 +76,8 @@ namespace Escc.Libraries.BranchFinder.Website
         /// <returns></returns>
         public static string RenderLibraryData(string description, string locationType, string town)
         {
+            if (locationType == null) throw new ArgumentNullException("locationType");
+
             StringBuilder sb = new StringBuilder();
             if (locationType.ToUpperInvariant().StartsWith("MOBILE", StringComparison.Ordinal))
             {
@@ -220,6 +227,9 @@ namespace Escc.Libraries.BranchFinder.Website
         /// </returns>
         public static DataSet GenerateDistances(DataSet ds, LatitudeLongitude centreOfPostcode, DistanceCalculator distanceCalculator)
         {
+            if (ds == null) throw new ArgumentNullException("ds");
+            if (distanceCalculator == null) throw new ArgumentNullException("distanceCalculator");
+
             using (DataColumn dcK = new DataColumn("Kilometres", Type.GetType("System.Double")))
             {
                 using (DataColumn dcM = new DataColumn("Miles", Type.GetType("System.Double")))
@@ -228,7 +238,7 @@ namespace Escc.Libraries.BranchFinder.Website
                     ds.Tables[0].Columns.Add(dcM);
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        var latLongInDataRow = new LatitudeLongitude(Convert.ToDouble(dr["Latitude"].ToString()), Convert.ToDouble(dr["Longitude"].ToString()));
+                        var latLongInDataRow = new LatitudeLongitude(Convert.ToDouble(dr["Latitude"].ToString(), CultureInfo.InvariantCulture), Convert.ToDouble(dr["Longitude"].ToString(), CultureInfo.InvariantCulture));
                         var kilometres = distanceCalculator.DistanceBetweenTwoPoints(centreOfPostcode, latLongInDataRow)/1000;
                         dr["Kilometres"] = kilometres;
                         dr["Miles"] = Math.Round((kilometres*0.6214), 2);
@@ -242,7 +252,7 @@ namespace Escc.Libraries.BranchFinder.Website
         /// <summary>
         /// Gets a DataSet of Libraries info from Application or calls GetDataSetFromCMS() if no cached version exists.
         /// </summary>
-        /// <seealso cref="DataSetFromCMS()">
+        /// <seealso cref="DataSetFromCms">
         /// The method which calls the CM Server web service.
         /// </seealso>
         /// <returns>An ADO.net DataSet.</returns>
@@ -251,7 +261,7 @@ namespace Escc.Libraries.BranchFinder.Website
             DataSet dsCms = Cache.Get("librarydata") as DataSet;
             if (dsCms == null)
             {
-                dsCms = DataSetFromCMS();
+                dsCms = DataSetFromCms();
                 Cache.Insert("librarydata", dsCms, null, DateTime.Now.AddHours(1), System.Web.Caching.Cache.NoSlidingExpiration);
             }
             return dsCms;
@@ -264,12 +274,14 @@ namespace Escc.Libraries.BranchFinder.Website
         /// Extracts placeholder content and uses this to create a dataset. Also draws mobile library data from an xml file.
         /// </remarks>
         /// <returns>DataSet of all libraries.</returns>
-        public static DataSet DataSetFromCMS()
+        public static DataSet DataSetFromCms()
         {
-            var ds = LibraryDataFormat.CreateDataSet();
-            new UmbracoLibraryDataSource().AddLibraries(ds.Tables[0]);
-            ds.AcceptChanges();
-            return ds;
+            using (var ds = LibraryDataFormat.CreateDataSet())
+            {
+                new UmbracoLibraryDataSource().AddLibraries(ds.Tables[0]);
+                ds.AcceptChanges();
+                return ds;
+            }
         }
     }
 }

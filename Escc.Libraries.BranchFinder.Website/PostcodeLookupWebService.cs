@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Escc.Exceptions.Soap;
+using Escc.FormControls.WebForms.AddressFinder;
 using Escc.Geo;
-using EsccWebTeam.FormControls.AddressFinder;
 
 namespace Escc.Libraries.BranchFinder.Website
 {

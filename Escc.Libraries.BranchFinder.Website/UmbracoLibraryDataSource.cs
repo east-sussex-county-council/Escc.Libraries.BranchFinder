@@ -16,8 +16,10 @@ namespace Escc.Libraries.BranchFinder.Website
     /// </summary>
     public class UmbracoLibraryDataSource : ILibraryDataSource
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "LibraryDataUrl"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "appSettings")]
         public void AddLibraries(DataTable table)
         {
+            if (table == null) throw new ArgumentNullException("table");
             if (String.IsNullOrEmpty(ConfigurationManager.AppSettings["LibraryDataUrl"]))
             {
                 throw new ConfigurationErrorsException("appSettings/LibraryDataUrl setting not found");
@@ -54,6 +56,7 @@ namespace Escc.Libraries.BranchFinder.Website
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
     internal class LocationApiResult
     {
         public string Name { get; set; }

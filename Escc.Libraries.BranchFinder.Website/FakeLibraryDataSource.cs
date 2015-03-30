@@ -10,6 +10,8 @@ namespace Escc.Libraries.BranchFinder.Website
     {
         public void AddLibraries(DataTable table)
         {
+            if (table == null) throw new ArgumentNullException("table");
+
             var lewes = table.NewRow();
             lewes["Name"] = "Lewes Library";
             lewes["URL"] = "/libraries/lewes.htm";

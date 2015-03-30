@@ -84,7 +84,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.aspx" />
-    <Content Include="Escc.Libraries.BranchFinder.Website.csproj.GhostDoc.xml" />
     <Content Include="img\libraries.png" />
     <Content Include="LibrarySearch.aspx" />
     <Content Include="Web.config">

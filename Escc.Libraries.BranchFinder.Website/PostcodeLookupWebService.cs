@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Web;
 using Escc.Exceptions.Soap;
 using Escc.FormControls.WebForms.AddressFinder;
@@ -24,6 +26,11 @@ namespace Escc.Libraries.BranchFinder.Website
             {
                 try
                 {
+                    if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["ConnectToCouncilWebServicesAccount"]) &&
+                        !String.IsNullOrEmpty(ConfigurationManager.AppSettings["ConnectToCouncilWebServicesPassword"]))
+                    {
+                        af.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["ConnectToCouncilWebServicesAccount"], ConfigurationManager.AppSettings["ConnectToCouncilWebServicesPassword"]);
+                    }
                     var eastingAndNorthing = af.AggregateEastingsAndNorthings(postcode);
                     var converter = new OrdnanceSurveyToLatitudeLongitudeConverter();
                     return converter.ConvertOrdnanceSurveyToLatitudeLongitude(eastingAndNorthing.Easting, eastingAndNorthing.Northing);

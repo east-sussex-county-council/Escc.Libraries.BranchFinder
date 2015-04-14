@@ -188,7 +188,7 @@ namespace Escc.Libraries.BranchFinder.Website
         {
             DataSet dsCms = GetSiteData();
             DataSet results;
-            var postcodeLookup = new FakePostcodeLookup();
+            var postcodeLookup = new PostcodeLookupWebService();
             var centreOfPostcode = postcodeLookup.CoordinatesAtCentreOfPostcode(nearPostcode);
             var distanceCalculator = new DistanceCalculator();
 

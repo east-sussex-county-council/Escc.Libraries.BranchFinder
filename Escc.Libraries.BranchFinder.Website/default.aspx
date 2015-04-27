@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="Escc.Libraries.BranchFinder.Website.DefaultPage" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="metadata">
-	<Egms:MetadataControl id="headcontent" runat="server"
+	<Metadata:MetadataControl id="headcontent" runat="server"
 		Title="Find your local library" 
 		Description="Information about public libraries in East Sussex, their services, opening hours and contact details." 
 		Keywords="Libraries, Branch libraries, Children's libraries, Mobile libraries, Reference libraries,Library facilities, Children's library service, Mobile library services,library, libraries, book, books, reference, talking books, story cassettes, tapes, videos, dvds, music, scores, cds, compact discs, leaflets, local history, local studies, electoral register, registers, display, newspapers, magazines, periodicals, journals, photocopier, people's network, computers, pcs, internet, word processing, cd-roms, housebound, volunteer, children, storytimes, story time, activities, reading game, homework, research, information, enquiries, enquiry service, lifelong learning"
@@ -11,10 +11,10 @@
 		LgtlType="Website facilities;Search results"
 		LgslNumbers="437"
 	 />
-    <Egms:Css runat="server" Files="FormsSmall" />
+    <Client:Css runat="server" Files="FormsSmall" />
     <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
-        <Egms:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" />
-        <Egms:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" />
+        <Client:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" />
+        <Client:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" />
     </EastSussexGovUK:ContextContainer>
 </asp:Content>
  

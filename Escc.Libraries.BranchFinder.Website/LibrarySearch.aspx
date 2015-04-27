@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LibrarySearch.aspx.cs" Inherits="Escc.Libraries.BranchFinder.Website.LibrarySearch" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="metadata">
-	<Egms:MetadataControl id="headcontent" runat="server" 
+	<Metadata:MetadataControl id="headcontent" runat="server" 
 		Title="Find your nearest library"
 		Description="Type in your postcode to find libraries and mobile library stops close to you."
 		Keywords="postcode; library; libraries; reference; mobile; search; nearest; closest; children's libraries; books; dvds; music; archives"
@@ -10,10 +10,10 @@
 		IpsvPreferredTerms="Public libraries;Mobile libraries;Children's libraries;Reference libraries"
 		LgslNumbers="437"
 		/>
-    <Egms:Css runat="server" Files="FormsSmall" />
+    <Client:Css runat="server" Files="FormsSmall" />
     <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
-        <Egms:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" />
-        <Egms:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" />
+        <Client:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" />
+        <Client:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" />
     </EastSussexGovUK:ContextContainer>
 </asp:Content>
 

@@ -122,7 +122,7 @@ namespace Escc.Libraries.BranchFinder.Website
             // apply filtering if mobile libraries are deselected
             if (!this.mobiles.Checked)
             {
-                dv.RowFilter = "[LocationType] <> 'Mobile library'";
+                dv.RowFilter = "[LocationType] <> 'MobileLibraryStop'";
             }
             // sort by distance
             dv.Sort = "Miles ASC";

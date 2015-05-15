@@ -41,21 +41,19 @@ DownloadProjectIfMissing $parentFolderOfThisScript "Escc.NavigationControls"
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.Data.Web"
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.Data.Xml"
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.HouseStyle"
-DownloadProjectIfMissing $parentFolderOfThisScript "Escc.FormControls"
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.Feeds"
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.Data.ActiveDirectory"
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.Cms"
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.Elibrary"
-NuGetRestoreForProject $parentFolderOfThisScript "Escc.FormControls"
 NuGetRestoreForProject $parentFolderOfThisScript "Escc.Cms"
 
 EnableDotNet40InIIS
 CreateApplicationPool $projectName
-CreateSSLCertificate $projectName
 CreateWebsite $projectName "$pathOfThisScript\$projectName"
-CreateHTTPSBinding $projectName
+CreateHTTPSBinding $projectName "localhost"
 RemoveHTTPBindings $projectName
-CreateVirtualDirectory $projectName "Escc.EastSussexGovUK" "$parentFolderOfThisScript\Escc.EastSussexGovUK" true
+CreateVirtualDirectory $projectName "Escc.EastSussexGovUK" "$parentFolderOfThisScript\Escc.EastSussexGovUK"
+CreateVirtualDirectory $projectName "masterpages" "$parentFolderOfThisScript\Escc.EastSussexGovUK\masterpages" true
 CopyConfig "$pathOfThisScript\$projectName\Web.example.config" "$pathOfThisScript\$projectName\Web.config"
 
 Write-Host

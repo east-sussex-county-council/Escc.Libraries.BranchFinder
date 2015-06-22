@@ -61,7 +61,7 @@ namespace Escc.Libraries.BranchFinder.Website
 
             if (locationType.ToUpperInvariant().StartsWith("MOBILE", StringComparison.Ordinal))
             {
-                url = ConfigurationManager.AppSettings["MobileLibraryTimesUrl"];
+                url = ConfigurationManager.AppSettings["UmbracoBaseUrl"] + "/libraries/locations/mobile/";
             }
 
             return HttpUtility.HtmlEncode(url);

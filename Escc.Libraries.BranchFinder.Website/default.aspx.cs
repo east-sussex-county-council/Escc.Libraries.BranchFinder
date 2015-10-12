@@ -18,7 +18,8 @@ namespace Escc.Libraries.BranchFinder.Website
             if (IsPostBack && !String.IsNullOrEmpty(this.postcode.Text))
             {
                 var postcodeEncoded = Server.UrlEncode(Regex.Replace(this.postcode.Text, "[^a-z0-9 ]", String.Empty, RegexOptions.IgnoreCase));
-                Http.Status303SeeOther(new Uri(ResolveUrl("~/LibrarySearch.aspx") + "?pc=" + postcodeEncoded + "&mobile=" + (this.mobiles.Checked ? 1 : 0), UriKind.Relative));
+                var redirectTo = new Uri("librarysearch.aspx?pc=" + postcodeEncoded + "&mobile=" + (this.mobiles.Checked ? 1 : 0), UriKind.Relative);
+                Http.Status303SeeOther(Iri.MakeAbsolute(redirectTo, new Uri(Uri.UriSchemeHttps + "://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.Url.AbsolutePath)));
             }
         }
     }

@@ -11,6 +11,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Escc.Exceptions.Soap;
 using Escc.Geo;
+using EsccWebTeam.Data.Web;
 using Exceptionless;
 
 namespace Escc.Libraries.BranchFinder.Website
@@ -28,27 +29,35 @@ namespace Escc.Libraries.BranchFinder.Website
 
                 this.mobiles.Checked = (Request.QueryString["mobile"] == "1");
 
-                // hide paging controls first time round
-                TogglePaging(false);
-            }
-
-            try
-            {
-                GetAndBindData();
-            }
-            catch (SoapException ex)
-            {
-                if (!ex.Message.Contains("The postcode entered appears to be incorrect.") &&
-                    !ex.Message.Contains("The postcode entered could not be found."))
+                try
                 {
-                    ex.ToExceptionless().Submit();
+                    GetAndBindData();
                 }
+                catch (SoapException ex)
+                {
+                    if (!ex.Message.Contains("The postcode entered appears to be incorrect.") &&
+                        !ex.Message.Contains("The postcode entered could not be found."))
+                    {
+                        ex.ToExceptionless().Submit();
+                    }
 
-                var helper = new SoapExceptionWrapper(ex);
-                litError.Text = String.Format(CultureInfo.InvariantCulture, Properties.Resources.ErrorFromWebService, helper.Message, helper.Description);
-                litError.Text = FormatException(litError.Text);
-                // hide paging controls and repeater if an error occurs
-                TogglePaging(false);
+                    var helper = new SoapExceptionWrapper(ex);
+                    litError.Text = String.Format(CultureInfo.InvariantCulture, Properties.Resources.ErrorFromWebService, helper.Message, helper.Description);
+                    litError.Text = FormatException(litError.Text);
+                }
+            }
+            else
+            {
+                var currentUrl = new Uri(Uri.UriSchemeHttps + "://" + Request.Url.Authority + Request.Url.AbsolutePath);
+                var redirectTo = Iri.MakeAbsolute(new Uri("librarysearch.aspx?pc=" + HttpUtility.UrlEncode(this.postcode.Text) + "&mobile=" + (this.mobiles.Checked ? "1" : "0"), UriKind.Relative), currentUrl);
+                if (redirectTo.PathAndQuery != Request.Url.PathAndQuery)
+                {
+                    Http.Status303SeeOther(redirectTo);
+                }
+                else
+                {
+                    GetAndBindData();
+                }
             }
         }
 
@@ -136,34 +145,10 @@ namespace Escc.Libraries.BranchFinder.Website
                 // bind data
                 rptResults.DataSource = dv;
                 rptResults.DataBind();
-
-                // write paging navigation
-                TogglePaging(true);
             }
             else
             {
-                TogglePaging(false);
                 litError.Text = FormatException(Properties.Resources.ErrorNoLibrariesFound);
-            }
-        }
-
-        /// <summary>
-        /// Sets paging visibility
-        /// </summary>
-        /// <param name="togVal">boolean. true = on, false = off.</param>
-        private void TogglePaging(bool togVal)
-        {
-            if (!togVal)
-            {
-                pagingTop.Visible = false;
-                pagingBottom.Visible = false;
-                rptResults.Visible = false;
-            }
-            else
-            {
-                pagingTop.Visible = true;
-                pagingBottom.Visible = true;
-                rptResults.Visible = true;
             }
         }
 

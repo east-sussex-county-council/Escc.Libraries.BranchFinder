@@ -37,7 +37,7 @@
     <NavigationControls:PagingController ID="pagingController" runat="server" ResultsTextSingular="result" ResultsTextPlural="results" />
     <NavigationControls:PagingBarControl ID="pagingTop" runat="server" PagingControllerId="pagingController" />
 
-    <asp:Repeater id="rptResults" runat="server">
+    <asp:Repeater id="rptResults" runat="server" EnableViewState="false">
 	    <ItemTemplate>
 		    <%# "<dl class=\"itemDetail\"><dt>Location: </dt><dd><a href=" + RenderLibraryUrl(DataBinder.Eval(Container.DataItem, "LocationType").ToString(), DataBinder.Eval(Container.DataItem, "URL").ToString()) + ">" +HttpUtility.HtmlEncode( DataBinder.Eval(Container.DataItem, "Name")) + "</a></dd>"%>
 		    <%# RenderLibraryData(DataBinder.Eval(Container.DataItem, "Description").ToString(), DataBinder.Eval(Container.DataItem, "LocationType").ToString(), DataBinder.Eval(Container.DataItem, "Town").ToString())%>

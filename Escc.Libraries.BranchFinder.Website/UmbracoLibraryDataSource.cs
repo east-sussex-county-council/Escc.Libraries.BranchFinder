@@ -6,8 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
+using Escc.Net;
 using EsccWebTeam.Data.Web;
-using EsccWebTeam.Data.Xml;
 using Newtonsoft.Json;
 
 namespace Escc.Libraries.BranchFinder.Website
@@ -28,7 +28,8 @@ namespace Escc.Libraries.BranchFinder.Website
 
             var url = ConfigurationManager.AppSettings["LibraryDataUrl"];
             var absoluteUrl = Iri.MakeAbsolute(new Uri(url));
-            var request = XmlHttpRequest.Create(absoluteUrl);
+            var client = new HttpRequestClient(new ConfigurationProxyProvider());
+            var request = client.CreateRequest(absoluteUrl);
 #if DEBUG
             // Turn off SSL check in debug mode as it will always fail against a self-signed certificate used for development
             request.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;

@@ -47,7 +47,11 @@
 
     <NavigationControls:PagingBarControl ID="pagingBottom" runat="server" PagingControllerId="pagingController" />
 
-    <EastSussexGovUK:Share runat="server" />
+    <EastSussexGovUK:Share runat="server" EnableViewState="False" />
 </article>
 </div>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="supporting">
+    <EastSussexGovUK:MasterPageControl runat="server" Control="SupportingContentDesktop" EnableViewState="False"/>
 </asp:Content>

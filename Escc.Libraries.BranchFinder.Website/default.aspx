@@ -71,7 +71,11 @@
             <area shape="poly" coords="309,154,310,174,399,177,402,162,388,162,388,154" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/sedlescombe/" alt="Sedlescombe" title="Sedlescombe" />
         </map>
 
-        <EastSussexGovUK:Share runat="server" />
+        <EastSussexGovUK:Share runat="server" EnableViewState="False" />
     </article>
     </div>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="supporting">
+    <EastSussexGovUK:MasterPageControl runat="server" Control="SupportingContentDesktop" EnableViewState="False"/>
 </asp:Content>

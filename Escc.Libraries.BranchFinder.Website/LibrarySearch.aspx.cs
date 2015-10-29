@@ -126,19 +126,24 @@ namespace Escc.Libraries.BranchFinder.Website
 
             // call the appropriate method which returns a dataset
             DataSet ds = GetNearestLibrariesRadialFromCms(rad, this.postcode.Text);
-            // get a default view on the dataset which we can then sort and filter
-            DataView dv = ds.Tables[0].DefaultView;
-            // apply filtering if mobile libraries are deselected
-            if (!this.mobiles.Checked)
-            {
-                dv.RowFilter = "[LocationType] <> 'MobileLibraryStop'";
-            }
-            // sort by distance
-            dv.Sort = "Miles ASC";
+            DataView dv = null;
 
-            // set up paging	
-            //trim data
-            pagingController.TrimRows(dv);
+            if (ds != null)
+            {
+                // get a default view on the dataset which we can then sort and filter
+                dv = ds.Tables[0].DefaultView;
+                // apply filtering if mobile libraries are deselected
+                if (!this.mobiles.Checked)
+                {
+                    dv.RowFilter = "[LocationType] <> 'MobileLibraryStop'";
+                }
+                // sort by distance
+                dv.Sort = "Miles ASC";
+
+                // set up paging	
+                //trim data
+                pagingController.TrimRows(dv);
+            }
 
             if (pagingController.TotalResults > 0)
             {
@@ -175,6 +180,8 @@ namespace Escc.Libraries.BranchFinder.Website
             DataSet results;
             var postcodeLookup = new PostcodeLookupWebService();
             var centreOfPostcode = postcodeLookup.CoordinatesAtCentreOfPostcode(nearPostcode);
+            if (centreOfPostcode == null) return null;
+
             var distanceCalculator = new DistanceCalculator();
 
             results = dsCms.Clone();

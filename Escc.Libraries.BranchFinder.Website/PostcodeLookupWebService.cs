@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Services.Protocols;
 using Escc.Exceptions.Soap;
 using Escc.FormControls.WebForms.AddressFinder;
 using Escc.Geo;
@@ -35,9 +36,16 @@ namespace Escc.Libraries.BranchFinder.Website
                     var converter = new OrdnanceSurveyToLatitudeLongitudeConverter();
                     return converter.ConvertOrdnanceSurveyToLatitudeLongitude(eastingAndNorthing.Easting, eastingAndNorthing.Northing);
                 }
-                catch (Exception ex)
+                catch (SoapException ex)
                 {
-                    throw SoapExceptionEngine.GetSoapException(ex.Message);
+                    if (ex.Message.Contains("The postcode entered appears to be incorrect."))
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        throw SoapExceptionEngine.GetSoapException(ex.Message);
+                    }
                 }
             }
         }

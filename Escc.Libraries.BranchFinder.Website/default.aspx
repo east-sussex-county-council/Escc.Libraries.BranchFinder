@@ -41,7 +41,7 @@
         <p class="useList note"><span class="or">or</span> use our <a href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/">list of libraries</a></p>
     </div>
 
-        <img width="455" height="344" alt="Map of libraries" class="mapNavigation" usemap="#Map" src="<%= ResolveUrl("~/img/libraries.png") %>" />
+        <img width="455" height="344" alt="Map of libraries" class="mapNavigation" usemap="#Map" src="<%= ResolveUrl("~/img/librariesNew.png") %>" />
         <map name="Map" id="Map">
             <area shape="rect" coords="69,44,154,72" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/forestrow/" alt="Forest Row" title="Forest Row" />
             <area shape="rect" coords="208,71,291,88" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/wadhurst/" alt="Wadhurst" title="Wadhurst" />

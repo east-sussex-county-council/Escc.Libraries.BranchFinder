@@ -13,15 +13,6 @@ namespace Escc.Libraries.BranchFinder.Website {
     public partial class DefaultPage {
         
         /// <summary>
-        /// headcontent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Escc.Web.Metadata.MetadataControl headcontent;
-        
-        /// <summary>
         /// postcode control.
         /// </summary>
         /// <remarks>

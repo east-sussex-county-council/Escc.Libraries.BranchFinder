@@ -66,7 +66,7 @@ BackupApplication "$destinationFolder/$projectName" $backupFolder $comment
 robocopy $sourceFolder "$destinationFolder/$projectName" /MIR /IF *.aspx *.dll *.png /XD aspnet_client obj Properties
 copy "$sourceFolder\img\web.example.config" "$destinationFolder\$projectName\img\web.config"
 
-TransformConfig "$sourceFolder\web.example.config" "$destinationFolder\$projectName\web.config" "$transformsFolder\web.release.config"
+TransformConfig "$sourceFolder\web.example.config" "$destinationFolder\$projectName\web.config" "$transformsFolder\$projectName\web.release.config"
 
 EnableDotNet40InIIS
 CreateApplicationPool $projectName

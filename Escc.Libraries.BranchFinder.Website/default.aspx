@@ -11,35 +11,34 @@
 		LgtlType="Website facilities;Search results"
 		LgslNumbers="437"
 	 />
-    <Client:Css runat="server" Files="FormsSmall" />
+    <Client:Css runat="server" Files="FormsSmall;ContentSmall" />
     <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
-        <Client:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" />
-        <Client:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" />
+        <Client:Css runat="server" Files="FormsMedium;ContentMedium" MediaConfiguration="Medium" />
+        <Client:Css runat="server" Files="FormsLarge;ContentLarge" MediaConfiguration="Large" />
     </EastSussexGovUK:ContextContainer>
 </asp:Content>
  
 <asp:Content runat="server" ContentPlaceHolderID="content">
     <div class="article">
     <article>
-        <h1 class="text">Find your local library</h1>
+        <div class="content text-content">
+            <h1>Find your local library</h1>
 
-        <div class="text">
             <p>There are 24 main libraries, one <a href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/mobile/">mobile library</a> and two village libraries in East Sussex. 
                 Most of our libraries have <a href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/library-services-for-people-with-disabilities/disabled-access/">disabled access</a> for wheelchairs.
             </p>
-        </div>
     
-        <div class="form simple-form" id="findLibrary">
-        <div class="fields-with-checkbox">
-            <div class="fields">
-                <asp:Label runat="server" AssociatedControlID="postCode">Postcode </asp:Label>
-                <asp:TextBox ID="postcode" runat="server" CssClass="postcode"></asp:TextBox>
-                <asp:CheckBox ID="mobiles" runat="server" CssClass="formControl checkbox" Text="Show mobile library stops"></asp:CheckBox>
+            <div class="form simple-form" id="findLibrary">
+            <div class="fields-with-checkbox">
+                <div class="fields">
+                    <asp:Label runat="server" AssociatedControlID="postCode">Postcode </asp:Label>
+                    <asp:TextBox ID="postcode" runat="server" CssClass="postcode"></asp:TextBox>
+                    <asp:CheckBox ID="mobiles" runat="server" CssClass="formControl checkbox" Text="Show mobile library stops"></asp:CheckBox>
+                </div>
+                <asp:Button ID="Go" runat="server" Text="Find your nearest" CssClass="button buttonBig" />
             </div>
-            <asp:Button ID="Go" runat="server" Text="Find your nearest" CssClass="button buttonBig" />
-        </div>
-        <p class="useList note"><span class="or">or</span> use our <a href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/">list of libraries</a></p>
-    </div>
+            <p class="useList note"><span class="or">or</span> use our <a href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/">list of libraries</a></p>
+            </div>
 
         <img width="455" height="344" alt="Map of libraries" class="mapNavigation" usemap="#Map" src="<%= ResolveUrl("~/img/librariesNew.png") %>" />
         
@@ -75,6 +74,7 @@
         </map>
 
         <EastSussexGovUK:Share runat="server" />
+        </div>
     </article>
     </div>
 </asp:Content>

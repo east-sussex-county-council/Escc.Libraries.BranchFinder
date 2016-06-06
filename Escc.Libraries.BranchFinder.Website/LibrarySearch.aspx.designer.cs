@@ -64,7 +64,7 @@ namespace Escc.Libraries.BranchFinder.Website {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::EsccWebTeam.NavigationControls.PagingController pagingController;
+        protected global::Escc.NavigationControls.WebForms.PagingController pagingController;
         
         /// <summary>
         /// pagingTop control.
@@ -73,7 +73,7 @@ namespace Escc.Libraries.BranchFinder.Website {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::EsccWebTeam.NavigationControls.PagingBarControl pagingTop;
+        protected global::Escc.NavigationControls.WebForms.PagingBarControl pagingTop;
         
         /// <summary>
         /// rptResults control.
@@ -91,6 +91,6 @@ namespace Escc.Libraries.BranchFinder.Website {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::EsccWebTeam.NavigationControls.PagingBarControl pagingBottom;
+        protected global::Escc.NavigationControls.WebForms.PagingBarControl pagingBottom;
     }
 }

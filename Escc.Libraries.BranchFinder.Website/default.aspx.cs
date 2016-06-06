@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using EsccWebTeam.Data.Web;
+using EsccWebTeam.EastSussexGovUK.MasterPages;
 
 namespace Escc.Libraries.BranchFinder.Website
 {
@@ -13,6 +14,12 @@ namespace Escc.Libraries.BranchFinder.Website
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            var skinnable = Master as BaseMasterPage;
+            if (skinnable != null)
+            {
+                skinnable.Skin = new CustomerFocusSkin(ViewSelector.CurrentViewIs(MasterPageFile));
+            }
+            
             // Sanitise postcode because spam bots keep feeding it to this page with a newline and causing an error 
             // saying newlines are not allowed in a redirect
             if (IsPostBack && !String.IsNullOrEmpty(this.postcode.Text))

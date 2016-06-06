@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 using Escc.Exceptions.Soap;
 using Escc.Geo;
 using EsccWebTeam.Data.Web;
+using EsccWebTeam.EastSussexGovUK.MasterPages;
 using Exceptionless;
 
 namespace Escc.Libraries.BranchFinder.Website
@@ -20,6 +21,12 @@ namespace Escc.Libraries.BranchFinder.Website
     {
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            var skinnable = Master as BaseMasterPage;
+            if (skinnable != null)
+            {
+                skinnable.Skin = new CustomerFocusSkin(ViewSelector.CurrentViewIs(MasterPageFile));
+            }
+
             if (!IsPostBack)
             {
                 if (Request.Params["pc"] != null)

@@ -11,7 +11,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Escc.Exceptions.Soap;
 using Escc.Geo;
-using EsccWebTeam.Data.Web;
+using Escc.Web;
 using EsccWebTeam.EastSussexGovUK.MasterPages;
 using Exceptionless;
 
@@ -56,10 +56,10 @@ namespace Escc.Libraries.BranchFinder.Website
             else
             {
                 var currentUrl = new Uri(Uri.UriSchemeHttps + "://" + Request.Url.Authority + Request.Url.AbsolutePath);
-                var redirectTo = Iri.MakeAbsolute(new Uri("librarysearch.aspx?pc=" + HttpUtility.UrlEncode(this.postcode.Text) + "&mobile=" + (this.mobiles.Checked ? "1" : "0"), UriKind.Relative), currentUrl);
+                var redirectTo = new Uri(currentUrl, new Uri("librarysearch.aspx?pc=" + HttpUtility.UrlEncode(this.postcode.Text) + "&mobile=" + (this.mobiles.Checked ? "1" : "0"), UriKind.Relative));
                 if (redirectTo.PathAndQuery != Request.Url.PathAndQuery)
                 {
-                    Http.Status303SeeOther(redirectTo);
+                    new HttpStatus().SeeOther(redirectTo);
                 }
                 else
                 {

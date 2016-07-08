@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using Escc.Net;
-using EsccWebTeam.Data.Web;
 using Newtonsoft.Json;
 
 namespace Escc.Libraries.BranchFinder.Website
@@ -27,7 +26,7 @@ namespace Escc.Libraries.BranchFinder.Website
             }
 
             var url = ConfigurationManager.AppSettings["LibraryDataUrl"];
-            var absoluteUrl = Iri.MakeAbsolute(new Uri(url));
+            var absoluteUrl = new Uri(HttpContext.Current.Request.Url, new Uri(url));
             var client = new HttpRequestClient(new ConfigurationProxyProvider());
             var request = client.CreateRequest(absoluteUrl);
 #if DEBUG

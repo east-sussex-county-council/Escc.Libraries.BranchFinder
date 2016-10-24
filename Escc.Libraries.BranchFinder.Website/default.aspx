@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="Escc.Libraries.BranchFinder.Website.DefaultPage" %>
+<%@ Register tagPrefix="EastSussexGovUK" tagName="Share" src="~/share.ascx" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="metadata">
 	<Metadata:MetadataControl id="headcontent" runat="server"
@@ -11,10 +12,10 @@
 		LgtlType="Website facilities;Search results"
 		LgslNumbers="437"
 	 />
-    <Client:Css runat="server" Files="FormsSmall;ContentSmall" />
+    <ClientDependency:Css runat="server" Files="FormsSmall" />
     <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
-        <Client:Css runat="server" Files="FormsMedium;ContentMedium" MediaConfiguration="Medium" />
-        <Client:Css runat="server" Files="FormsLarge;ContentLarge" MediaConfiguration="Large" />
+        <ClientDependency:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" />
+        <ClientDependency:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" />
     </EastSussexGovUK:ContextContainer>
 </asp:Content>
  

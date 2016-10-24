@@ -181,7 +181,6 @@
   <ItemGroup>
     <Content Include="default.aspx" />
     <Content Include="img\libraries.png" />
-    <Content Include="img\librariesNew.png" />
     <Content Include="LibrarySearch.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

@@ -50,37 +50,33 @@
             <p class="useList note"><span class="or">or</span> use our <a href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/">list of libraries</a></p>
             </div>
 
-        <img width="455" height="344" alt="Map of libraries" class="mapNavigation" usemap="#Map" src="<%= ResolveUrl("~/img/librariesNew.png") %>" />
+        <img width="455" height="344" alt="Map of libraries" class="mapNavigation" usemap="#Map" src="<%= ResolveUrl("~/img/libraries.png") %>" />
         
         <map name="Map" id="Map">
-            <area shape="rect" coords="69,44,154,72" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/forestrow/" alt="Forest Row" title="Forest Row" />
-            <area shape="rect" coords="190,71,277,88" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/wadhurst/" alt="Wadhurst" title="Wadhurst" />
-            <area shape="rect" coords="77,77,148,94" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/crowborough/" alt="Crowborough" title="Crowborough" />
-            <area shape="rect" coords="190,114,264,122" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/mayfield/" alt="Mayfield" title="Mayfield" />
-            <area shape="rect" coords="122,150,152,170" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/uckfield/" alt="Uckfield" title="Uckfield" />
-            <area shape="rect" coords="160,125,268,145" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/heathfield/" alt="Heathfield" title="Heathfield" />
-            <area shape="rect" coords="80,177,158,208" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/ringmer/" alt="Ringmer" title="Ringmer" />
-            <area shape="rect" coords="50,210,117,239" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/lewes/" alt="Lewes" title="Lewes" />
-            <area shape="rect" coords="46,256,86,304" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/peacehaven/" alt="Peacehaven" title="Peacehaven" />
-            <area shape="rect" coords="81,255,147,280" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/newhaven/" alt="Newhaven" title="Newhaven" />
-            <area shape="rect" coords="97,282,138,305" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/seaford/" alt="Seaford" title="Seaford" />
-            <area shape="rect" coords="155,262,197,272" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/willingdon/" alt="Willingdon" title="Willingdon" />
-            
-            <area shape="rect" coords="249,176,289,191" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/battle/" alt="Battle" title="Battle" />
-            <area shape="rect" coords="269,199,309,226" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/hollington/" alt="Hollington" title="Hollington" />
-            <area shape="rect" coords="337,206,396,220" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/ore/" alt="Ore" title="Ore" />
-            <area shape="rect" coords="314,221,372,248" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/hastings/" alt="Hastings" title="Hastings" />
-            <area shape="rect" coords="265,236,315,254" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/bexhill/" alt="Bexhill" title="Bexhill" />
-            <area shape="rect" coords="186,218,251,242" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/hailsham/" alt="Hailsham" title="Hailsham" />
-            <area shape="rect" coords="145,238,190,256" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/polegate/" alt="Polegate" title="Polegate" />
-            <area shape="rect" coords="175,257,225,267" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/langney/" alt="Langney" title="Langney" />
-            <area shape="rect" coords="309,137,358,167" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/northiam/" alt="Northiam" title="Northiam" />
-            <area shape="rect" coords="180,290,220,305" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/eastbourne/" alt="Eastbourne" title="Eastbourne" />
-
-            <area shape="rect" coords="232,257,270,280" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/pevenseybay/" alt="Pevensey Bay" title="Pevensey Bay" />
-            <area shape="rect" coords="380,160,410,180" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/rye/" alt="Rye" title="Rye" />
-            <area shape="rect" coords="195,277,250,290" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/hampdenpark/" alt="Hampden Park" title="Hampden Park" />
-            <area shape="rect" coords="289,164,350,194" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/sedlescombe/" alt="Sedlescombe" title="Sedlescombe" />
+<area alt="Forest Row" title="Forest Row" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/forestrow/" shape="rect" coords="64,23,133,56" />
+<area alt="Crowborough" title="Crowborough" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/crowborough/" shape="rect" coords="91,55,176,90" />
+<area alt="Wadhurst" title="Wadhurst" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/wadhurst/" shape="rect" coords="179,45,248,78" />
+<area alt="Mayfield" title="Mayfield" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/mayfield/" shape="rect" coords="177,87,244,122" />
+<area alt="Uckfield" title="Uckfield" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/uckfield/" shape="rect" coords="86,129,153,164" />
+<area alt="Heathfield" title="Heathfield" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/heathfield/" shape="rect" coords="172,132,252,161" />
+<area alt="Ringmer" title="Ringmer" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/ringmer/" shape="rect" coords="73,190,141,220" />
+<area alt="Lewes" title="Lewes" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/lewes/" shape="rect" coords="40,217,84,247" />
+<area alt="Peacehaven" title="Peacehaven" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/peacehaven/" shape="rect" coords="5,273,73,303" />
+<area alt="Newhaven" title="Newhaven" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/newhaven/" shape="rect" coords="75,258,139,288" />
+<area alt="Seaford" title="Seaford" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/seaford/" shape="rect" coords="98,287,166,309" />
+<area alt="Hailsham" title="Hailsham" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/hailsham/" shape="rect" coords="154,201,214,229" />
+<area alt="Polegate" title="Polegate" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/polegate/" shape="rect" coords="136,233,190,261" />
+<area alt="Willingdon" title="Willingdon" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/willingdon/" shape="poly" coords="143,341,146,322,175,320,176,269,188,269,185,323,206,324,208,343" />
+<area alt="Eastbourne" title="Eastbourne" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/eastbourne/" shape="poly" coords="190,293,203,295,214,305,259,308,260,325,192,323" />
+<area alt="Hampden Park" title="Hampden Park" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/hampdenpark/" shape="poly" coords="193,276,229,287,307,288,309,304,227,306,187,289" />
+<area alt="Langney" title="Langney" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/langney/" shape="rect" coords="203,266,309,284" />
+<area alt="Pevensey Bay" title="Pevensey Bay" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/pevenseybay/" shape="rect" coords="196,235,267,264" />
+<area alt="Bexhill" title="Bexhill" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/bexhill/" shape="rect" coords="268,217,310,246" />
+<area alt="Battle" title="Battle" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/battle/" shape="rect" coords="255,172,309,197" />
+<area alt="Hollington" title="Hollington" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/hollington/" shape="rect" coords="308,189,369,214" />
+<area alt="Ore" title="Ore" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/ore/" shape="rect" coords="346,213,388,234" />
+<area alt="Hastings" title="Hastings" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/hastings/" shape="poly" coords="335,224,348,232,369,237,371,261,313,261,314,236" />
+<area alt="Rye" title="Rye" href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/rye/" shape="rect" coords="390,145,436,174" />
         </map>
 
         <EastSussexGovUK:Share runat="server" />

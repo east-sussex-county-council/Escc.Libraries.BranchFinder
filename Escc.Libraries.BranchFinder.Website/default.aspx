@@ -23,6 +23,15 @@
     <article>
         <div class="content text-content">
             <h1>Find your local library</h1>
+            
+            <EastSussexGovUK:ContextContainer runat="server" Before="2016-11-24">
+            <div class="latest">
+                <section>
+                    <h2>Latest</h2>
+                    <p><a href="https://www.eastsussex.gov.uk/libraries/locations/new-library-opening-times/?utm_source=librarieslatest-escc&amp;utm_medium=web&amp;utm_content=newlibraryopeningtimes&amp;utm_campaign=libraries">New library opening times start on 28 November 2016</a></p>
+                </section>
+            </div>
+            </EastSussexGovUK:ContextContainer>
 
             <p>There are 24 main libraries, one <a href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/mobile/">mobile library</a> and two village libraries in East Sussex. 
                 Most of our libraries have <a href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/library-services-for-people-with-disabilities/disabled-access/">disabled access</a> for wheelchairs.

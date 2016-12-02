@@ -34,7 +34,7 @@
             </div>
             </EastSussexGovUK:ContextContainer>
 
-            <p>There are 24 main libraries, one <a href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/mobile/">mobile library</a> and two village libraries in East Sussex. 
+            <p>There are 24 main libraries and one <a href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/mobile/">mobile library</a> in East Sussex. 
                 Most of our libraries have <a href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/library-services-for-people-with-disabilities/disabled-access/">disabled access</a> for wheelchairs.
             </p>
     

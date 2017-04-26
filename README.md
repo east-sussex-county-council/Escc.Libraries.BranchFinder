@@ -32,7 +32,6 @@ One more entry in `appSettings` is required in `web.config`, which is a base URL
 
 ## Development setup steps
 
-1. Install [NuBuild](https://github.com/bspell1/NuBuild)
-2. From an Administrator command prompt, run `app-setup-dev.cmd` to set up a site in IIS.
-3. Build the solution
-9. In `~\web.config` uncomment and complete the `Proxy` section, and update the three URLs for the web service, library data API and mobile library times page.
+1. From an Administrator command prompt, run `app-setup-dev.cmd` to set up a site in IIS.
+2. Build the solution
+3. In `~\web.config` uncomment and complete the `Proxy` section, and update the app settings shown above.

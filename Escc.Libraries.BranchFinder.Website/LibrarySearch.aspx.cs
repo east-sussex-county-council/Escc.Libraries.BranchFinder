@@ -16,6 +16,7 @@ using Escc.Exceptions.Soap;
 using Escc.Geo;
 using Escc.Web;
 using Exceptionless;
+using Escc.Net;
 
 namespace Escc.Libraries.BranchFinder.Website
 {
@@ -187,7 +188,7 @@ namespace Escc.Libraries.BranchFinder.Website
         {
             DataSet dsCms = GetSiteData();
             DataSet results;
-            var postcodeLookup = new PostcodeLookupWebService();
+            var postcodeLookup = new LocateApiPostcodeLookup(new Uri(ConfigurationManager.AppSettings["LocateApiUrl"]), ConfigurationManager.AppSettings["LocateApiToken"], new ConfigurationProxyProvider());
             var centreOfPostcode = postcodeLookup.CoordinatesAtCentreOfPostcode(nearPostcode);
             if (centreOfPostcode == null) return null;
 

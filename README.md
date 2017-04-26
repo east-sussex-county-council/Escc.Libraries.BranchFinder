@@ -10,7 +10,7 @@ This tool relies on two external tools:
 
 		<appSettings>
 			<add key="LocateApiToken" value="12345"/>
-		    <add key="LocateApiUrl" value="https://hostname/locate/authority?postcode={0}"/>
+		    <add key="LocateApiAuthorityUrl" value="https://hostname/locate/authority?postcode={0}"/>
 		</appSettings>
 
 * an API, defined in the `Escc.EastSussexGovUK.Umbraco` project, which provides library data as JSON.

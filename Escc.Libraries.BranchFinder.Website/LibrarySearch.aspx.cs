@@ -188,7 +188,7 @@ namespace Escc.Libraries.BranchFinder.Website
         {
             DataSet dsCms = GetSiteData();
             DataSet results;
-            var postcodeLookup = new LocateApiPostcodeLookup(new Uri(ConfigurationManager.AppSettings["LocateApiUrl"]), ConfigurationManager.AppSettings["LocateApiToken"], new ConfigurationProxyProvider());
+            var postcodeLookup = new LocateApiPostcodeLookup(new Uri(ConfigurationManager.AppSettings["LocateApiAuthorityUrl"]), ConfigurationManager.AppSettings["LocateApiToken"], new ConfigurationProxyProvider());
             var centreOfPostcode = postcodeLookup.CoordinatesAtCentreOfPostcode(nearPostcode);
             if (centreOfPostcode == null) return null;
 

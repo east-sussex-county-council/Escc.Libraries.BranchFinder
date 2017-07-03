@@ -17,6 +17,8 @@ using Escc.Geo;
 using Escc.Web;
 using Exceptionless;
 using Escc.Net;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Escc.Libraries.BranchFinder.Website
 {
@@ -59,7 +61,7 @@ namespace Escc.Libraries.BranchFinder.Website
             else
             {
                 var currentUrl = new Uri(Uri.UriSchemeHttps + "://" + Request.Url.Authority + Request.Url.AbsolutePath);
-                var redirectTo = new Uri(currentUrl, new Uri("librarysearch.aspx?pc=" + HttpUtility.UrlEncode(this.postcode.Text) + "&mobile=" + (this.mobiles.Checked ? "1" : "0"), UriKind.Relative));
+                var redirectTo = new Uri(currentUrl, new Uri("librarysearch.aspx?reload&pc=" + HttpUtility.UrlEncode(this.postcode.Text) + "&mobile=" + (this.mobiles.Checked ? "1" : "0"), UriKind.Relative));
                 if (redirectTo.PathAndQuery != Request.Url.PathAndQuery)
                 {
                     new HttpStatus().SeeOther(redirectTo);

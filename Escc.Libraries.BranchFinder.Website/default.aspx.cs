@@ -9,6 +9,8 @@ using Escc.EastSussexGovUK.Skins;
 using Escc.EastSussexGovUK.Views;
 using Escc.Web;
 using Escc.EastSussexGovUK.WebForms;
+using System.IO;
+using System.Globalization;
 
 namespace Escc.Libraries.BranchFinder.Website
 {
@@ -16,6 +18,12 @@ namespace Escc.Libraries.BranchFinder.Website
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Ensure there's one version of this URL so that the data is consistent in Google Analytics
+            if (Path.GetFileName(Request.RawUrl).ToUpperInvariant() == "DEFAULT.ASPX")
+            {
+                new HttpStatus().MovedPermanently(ResolveUrl("~/"));
+            }
+
             var skinnable = Master as BaseMasterPage;
             if (skinnable != null)
             {
@@ -30,6 +38,24 @@ namespace Escc.Libraries.BranchFinder.Website
                 var redirectTo = new Uri("librarysearch.aspx?pc=" + postcodeEncoded + "&mobile=" + (this.mobiles.Checked ? 1 : 0), UriKind.Relative);
                 new HttpStatus().SeeOther(new Uri(new Uri(Uri.UriSchemeHttps + "://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.Url.AbsolutePath), redirectTo));
             }
+        }
+
+        /// <summary>
+        /// Initializes the <see cref="T:System.Web.UI.HtmlTextWriter" /> object and calls on the child controls of the <see cref="T:System.Web.UI.Page" /> to render.
+        /// </summary>
+        /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> that receives the page content.</param>
+        protected override void Render(HtmlTextWriter writer)
+        {
+            // Get the HTML to be rendered 
+            TextWriter tempWriter = new StringWriter(CultureInfo.CurrentCulture);
+            base.Render(new HtmlTextWriter(tempWriter));
+            string modifiedHtml = tempWriter.ToString();
+
+            // Add a reload parameter to the form action, so that postbacks can be distinguished from the initial load in Google Analytics
+            modifiedHtml = modifiedHtml.Replace(" action=\"./\"", " action=\"./?reload\"");
+
+            // Send new HTML to be rendered instead
+            writer.Write(modifiedHtml);
         }
     }
 }

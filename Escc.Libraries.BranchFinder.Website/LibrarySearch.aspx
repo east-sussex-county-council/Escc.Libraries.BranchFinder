@@ -40,9 +40,9 @@
 
         <asp:Repeater id="rptResults" runat="server" EnableViewState="false">
 	        <ItemTemplate>
-		        <%# "<dl class=\"itemDetail\"><dt>Location: </dt><dd><a href=" + RenderLibraryUrl(DataBinder.Eval(Container.DataItem, "LocationType").ToString(), DataBinder.Eval(Container.DataItem, "URL").ToString()) + ">" +HttpUtility.HtmlEncode( DataBinder.Eval(Container.DataItem, "Name")) + "</a></dd>"%>
-		        <%# RenderLibraryData(DataBinder.Eval(Container.DataItem, "Description").ToString(), DataBinder.Eval(Container.DataItem, "LocationType").ToString(), DataBinder.Eval(Container.DataItem, "Town").ToString())%>
-		        <%# "<dt>Distance: </dt><dd>" + DataBinder.Eval(Container.DataItem, "Miles") + " miles</dd></dl>" %>
+		        <dl class="itemDetail"><dt>Location: </dt><dd><a href="<%# HttpUtility.HtmlEncode(DataBinder.Eval(Container.DataItem, "URL").ToString()) %>"><%# HttpUtility.HtmlEncode( DataBinder.Eval(Container.DataItem, "Name")) %></a></dd>
+		        <dt>Description: </dt><dd><%# HttpUtility.HtmlEncode(DataBinder.Eval(Container.DataItem, "Description").ToString())%></dd>
+		        <dt>Distance: </dt><dd><%# DataBinder.Eval(Container.DataItem, "Miles") %> miles</dd></dl>
 	        </ItemTemplate>
         </asp:Repeater>
 

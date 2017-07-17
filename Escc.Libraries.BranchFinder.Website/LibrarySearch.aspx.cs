@@ -73,44 +73,6 @@ namespace Escc.Libraries.BranchFinder.Website
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#"), 
-        System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
-        public static string RenderLibraryUrl(string locationType, string url)
-        {
-            if (locationType == null) throw new ArgumentNullException("locationType");
-            if (url == null) throw new ArgumentNullException("url");
-
-            if (locationType.ToUpperInvariant().StartsWith("MOBILE", StringComparison.Ordinal))
-            {
-                url = ConfigurationManager.AppSettings["UmbracoBaseUrl"] + "/libraries/locations/mobile/";
-            }
-
-            return HttpUtility.HtmlEncode(url);
-        }
-
-        /// <summary>
-        /// Selectively shows information based on whether the library is static or mobile.
-        /// </summary>
-        /// <param name="description">string. Description for a mobile library.</param>
-        /// <param name="locationType">string. locationType the mobile library visits.</param>
-        /// <param name="town">string. Town of visit.</param>
-        /// <returns></returns>
-        public static string RenderLibraryData(string description, string locationType, string town)
-        {
-            if (locationType == null) throw new ArgumentNullException("locationType");
-
-            StringBuilder sb = new StringBuilder();
-            if (locationType.ToUpperInvariant().StartsWith("MOBILE", StringComparison.Ordinal))
-            {
-                sb.Append("<dt>Town: </dt><dd>").Append(HttpUtility.HtmlEncode(town)).Append("</dd><dt>Description:</dt><dd>This is a mobile library stop. Check the full page for timetables.</dd>");
-            }
-            else
-            {
-                sb.Append("<dt>Description:</dt><dd>").Append(HttpUtility.HtmlEncode(description)).Append("</dd>");
-            }
-            return sb.ToString();
-        }
-
         /// <summary>
         /// Creates a bullet point error message
         /// </summary>

@@ -11,11 +11,12 @@
 		IpsvPreferredTerms="Public libraries;Mobile libraries;Children's libraries;Reference libraries"
 		LgslNumbers="437"
 		/>
-    <ClientDependency:Css runat="server" Files="FormsSmall" />
     <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
+        <ClientDependency:Css runat="server" Files="FormsSmall" />
         <ClientDependency:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" />
         <ClientDependency:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" />
     </EastSussexGovUK:ContextContainer>
+    <ClientDependency:Script runat="server" Files="Tips;DescribedByTips" />
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="content">
@@ -28,9 +29,10 @@
         <div class="form simple-form">
             <div class="fields-with-checkbox">
             <div class="fields">
-					    <asp:label cssclass="formLabel" runat="server" associatedcontrolid="postCode">Postcode: </asp:label>
-					    <asp:TextBox ID="postcode" Runat="server" CssClass="formControl postcode"></asp:TextBox>
-					    <asp:CheckBox ID="mobiles" Runat="server" CssClass="formControl checkbox" Text="Show mobile library stops"></asp:CheckBox>
+				<asp:label cssclass="formLabel" runat="server" associatedcontrolid="postCode">Postcode </asp:label>
+				<asp:TextBox ID="postcode" Runat="server" CssClass="formControl postcode describedby-tip" aria-describedby="postcode-help" data-tip-positions="top bottom"></asp:TextBox>
+                <p id="postcode-help">We won't keep or share your postcode.</p>
+				<asp:CheckBox ID="mobiles" Runat="server" CssClass="formControl checkbox" Text="Show mobile library stops"></asp:CheckBox>
             </div>
 	    <asp:Button ID="Go" Text="Find your nearest" CssClass="button" Runat="server" />
             </div>

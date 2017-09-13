@@ -12,11 +12,12 @@
 		LgtlType="Website facilities;Search results"
 		LgslNumbers="437"
 	 />
-    <ClientDependency:Css runat="server" Files="FormsSmall" />
     <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
+        <ClientDependency:Css runat="server" Files="FormsSmall" />
         <ClientDependency:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" />
         <ClientDependency:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" />
     </EastSussexGovUK:ContextContainer>
+    <ClientDependency:Script runat="server" Files="Tips;DescribedByTips" />
 </asp:Content>
  
 <asp:Content runat="server" ContentPlaceHolderID="content">
@@ -42,7 +43,8 @@
             <div class="fields-with-checkbox">
                 <div class="fields">
                     <asp:Label runat="server" AssociatedControlID="postCode">Postcode </asp:Label>
-                    <asp:TextBox ID="postcode" runat="server" CssClass="postcode"></asp:TextBox>
+                    <asp:TextBox ID="postcode" runat="server" CssClass="postcode describedby-tip" aria-describedby="postcode-help" data-tip-positions="top bottom"></asp:TextBox>
+                    <p id="postcode-help">We won't keep or share your postcode.</p>
                     <asp:CheckBox ID="mobiles" runat="server" CssClass="formControl checkbox" Text="Show mobile library stops"></asp:CheckBox>
                 </div>
                 <asp:Button ID="Go" runat="server" Text="Find your nearest" CssClass="button buttonBig" />

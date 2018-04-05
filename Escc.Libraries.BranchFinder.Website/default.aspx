@@ -38,6 +38,8 @@
             <p>There are 24 main libraries and one <a href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/locations/mobile/">mobile library</a> in East Sussex. 
                 Most of our libraries have <a href="<%= ConfigurationManager.AppSettings["UmbracoBaseUrl"] %>/libraries/library-services-for-people-with-disabilities/disabled-access/">disabled access</a> for wheelchairs.
             </p>
+
+            <p><strong>Following changes to the Library and Information Service, after Saturday 5 May 2018, we will provide a smaller network of 17 libraries. Seven of the current 24 libraries will be closed. These libraries are Langney, Mayfield, Ore, Pevensey Bay, Polegate, Ringmer and Willingdon. The Mobile Library Service will also close after this date.</strong></p>
     
             <div class="form simple-form" id="findLibrary">
             <div class="fields-with-checkbox">

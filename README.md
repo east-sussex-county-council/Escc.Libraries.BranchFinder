@@ -18,7 +18,7 @@ This tool relies on two external tools:
 	This requires the URL to be set in the `appSettings` section of `web.config`:
 	
 		<appSettings>
-    		<add key="LibraryDataUrl" value="https://hostname/umbraco/api/location/list?type=Library&amp;type=MobileLibraryStop"/>
+    		<add key="LibraryDataUrl" value="https://hostname/umbraco/api/location/list?type=Library"/>
 		</appSettings>
 
 

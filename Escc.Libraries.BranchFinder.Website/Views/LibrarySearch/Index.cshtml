@@ -1,0 +1,55 @@
+﻿@model Escc.Libraries.BranchFinder.Website.LibrariesViewModel
+@using System.Configuration
+@using ClientDependency.Core.Mvc
+@using Escc.ClientDependencyFramework
+@{
+    Model.Metadata.Title = "Find your nearest library";
+    Model.Metadata.Description = "Type in your postcode to find libraries and mobile library stops close to you.";
+    Model.Metadata.Keywords = "postcode; library; libraries; reference; mobile; search; nearest; closest; children's libraries; books; dvds; music; archives";
+    Model.Metadata.DateCreated = "2004-12-08";
+    Model.Metadata.LgtlType = "Search results";
+    Model.Metadata.IpsvPreferredTerms = "Public libraries;Mobile libraries;Children's libraries;Reference libraries";
+    Model.Metadata.LgslNumbers = "437";
+
+    Html.RequiresCss(CssFileAlias.Resolve("FormsSmall"));
+    Html.RequiresCss(CssFileAlias.Resolve("FormsMedium"), MediaQueryAlias.Resolve("Medium"));
+    Html.RequiresCss(CssFileAlias.Resolve("FormsLarge"), MediaQueryAlias.Resolve("Large"));
+    Html.RequiresJs(JsFileAlias.Resolve("Tips"), 50);
+    Html.RequiresJs(JsFileAlias.Resolve("DescribedByTips"));
+}
+<div class="article">
+    <article>
+        <div class="content text-content">
+            <h1>Find your nearest library</h1>
+            @if (!String.IsNullOrEmpty(Model.PostcodeLookupError))
+            {
+                <ul class="validationSummary"><li>@Model.PostcodeLookupError</li></ul>
+            }
+
+            @Html.ValidationSummary()
+            <form action="@Url.Content("~/")?reload" method="GET" class="form simple-form">
+                <label for="postcode">Postcode</label>
+                <input id="postcode" name="pc" value="@Model.Postcode" class="postcode describedby-tip" aria-describedby="postcode-help" data-tip-positions="top bottom" />
+                <p id="postcode-help">We won't keep or share your postcode.</p>
+                <input type="submit" id="Go" value="Find your nearest" class="button" />
+                <p class="useList note"><span class="or">or</span> use our <a href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/">list of libraries</a></p>
+            </form>
+
+            @foreach (var library in Model.Libraries)
+            {
+                <dl class="itemDetail">
+                    <dt>Location: </dt>
+                    <dd><a href="@library.Url">@library.Name</a></dd>
+                    <dt>Description: </dt>
+                    <dd>@library.Description</dd>
+                    <dt>Distance: </dt>
+                    <dd>@library.MilesAway miles</dd>
+                </dl>
+            }
+
+            @{ Html.RenderPartial("~/Views/EastSussexGovUK/Features/_Share.cshtml", Model); }
+        </div>
+    </article>
+</div>
+
+@{ Html.RenderPartial("~/Views/EastSussexGovUK/Features/_SupportingContentDesktop.cshtml", Model); }

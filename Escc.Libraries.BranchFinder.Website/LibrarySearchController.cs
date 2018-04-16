@@ -1,49 +1,34 @@
-﻿using System;
+﻿using Escc.Exceptions.Soap;
+using Escc.Geo;
+using Escc.Net;
+using Escc.Web;
+using Exceptionless;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Web;
+using System.Web.Caching;
+using System.Web.Mvc;
 using System.Web.Services.Protocols;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Escc.EastSussexGovUK.Skins;
-using Escc.EastSussexGovUK.Views;
-using Escc.EastSussexGovUK.WebForms;
-using Escc.Exceptions.Soap;
-using Escc.Geo;
-using Escc.Web;
-using Exceptionless;
-using Escc.Net;
-using System.IO;
-using System.Text.RegularExpressions;
 
 namespace Escc.Libraries.BranchFinder.Website
 {
-    public partial class LibrarySearch : System.Web.UI.Page
+    public class LibrarySearchController : Controller
     {
-        protected void Page_Load(object sender, System.EventArgs e)
+        // GET: Default
+        public ActionResult Index(string pc)
         {
-            var skinnable = Master as BaseMasterPage;
-            if (skinnable != null)
+            var model = new LibrariesViewModel();
+            model.Postcode = pc;
+
+            if (!String.IsNullOrEmpty(model.Postcode))
             {
-                skinnable.Skin = new CustomerFocusSkin(ViewSelector.CurrentViewIs(MasterPageFile));
-            }
-
-            if (!IsPostBack)
-            {
-                if (Request.Params["pc"] != null)
-                {
-                    this.postcode.Text = Request.Params["pc"];
-                }
-
-                this.mobiles.Checked = (Request.QueryString["mobile"] == "1");
-
                 try
                 {
-                    GetAndBindData();
+                    GetAndBindData(model, HttpContext.Cache);
                 }
                 catch (SoapException ex)
                 {
@@ -54,80 +39,52 @@ namespace Escc.Libraries.BranchFinder.Website
                     }
 
                     var helper = new SoapExceptionWrapper(ex);
-                    litError.Text = String.Format(CultureInfo.InvariantCulture, Properties.Resources.ErrorFromWebService, helper.Message, helper.Description);
-                    litError.Text = FormatException(litError.Text);
+                    model.PostcodeLookupError = String.Format(CultureInfo.InvariantCulture, Properties.Resources.ErrorFromWebService, helper.Message, helper.Description);
                 }
             }
-            else
-            {
-                var currentUrl = new Uri(Uri.UriSchemeHttps + "://" + Request.Url.Authority + Request.Url.AbsolutePath);
-                var redirectTo = new Uri(currentUrl, new Uri("librarysearch.aspx?reload&pc=" + HttpUtility.UrlEncode(this.postcode.Text) + "&mobile=" + (this.mobiles.Checked ? "1" : "0"), UriKind.Relative));
-                if (redirectTo.PathAndQuery != Request.Url.PathAndQuery)
-                {
-                    new HttpStatus().SeeOther(redirectTo);
-                }
-                else
-                {
-                    GetAndBindData();
-                }
-            }
+
+            return View(model);
         }
 
-        /// <summary>
-        /// Creates a bullet point error message
-        /// </summary>
-        /// <param name="message">string</param>
-        /// <returns>string</returns>
-        private static string FormatException(string message)
-        {
-            string startTags = "<ul class=\"validationSummary\"><li>";
-            string endTags = "</li></ul>";
-            message = startTags + message + endTags;
-            return message;
-        }
         /// <summary>
         /// Instantiates and uses web services to bind the repeater control with a list of nearest waste sites.
         /// Called from Page_Load and uses the values from the postcode textbox and the waste type and radial distance drop downs.
         /// The list is sorted in order of ascending distance and filtered on waste type if a type has been selected by the user.
         /// </summary>
-        private void GetAndBindData()
+        [NonAction]
+        private void GetAndBindData(LibrariesViewModel model, Cache cache)
         {
             //clear any error messages
-            litError.Text = string.Empty;
+            model.PostcodeLookupError = string.Empty;
 
             // need to convert miles to metres 
             Int32 rad = (int)ConvertMilesToMetres(60);
 
             // call the appropriate method which returns a dataset
-            DataSet ds = GetNearestLibrariesRadialFromCms(rad, this.postcode.Text);
-            DataView dv = null;
+            DataSet ds = GetNearestLibrariesRadialFromCms(rad, model.Postcode, cache);
 
             if (ds != null)
             {
-                // get a default view on the dataset which we can then sort and filter
-                dv = ds.Tables[0].DefaultView;
-                // apply filtering if mobile libraries are deselected
-                if (!this.mobiles.Checked)
-                {
-                    dv.RowFilter = "[LocationType] <> 'MobileLibraryStop'";
-                }
+                // get a default view on the dataset which we can then sort 
+                DataView dv = ds.Tables[0].DefaultView;
                 // sort by distance
                 dv.Sort = "Miles ASC";
 
-                // set up paging	
-                //trim data
-                pagingController.TrimRows(dv);
+                // bind data
+                foreach (DataRowView row in dv)
+                {
+                    var libraryResult = new LibraryResult();
+                    libraryResult.Name = row["Name"].ToString();
+                    libraryResult.Url = new Uri(row["URL"].ToString(), UriKind.RelativeOrAbsolute);
+                    libraryResult.Description = row["Description"].ToString();
+                    libraryResult.MilesAway = (double)row["Miles"];
+                    model.Libraries.Add(libraryResult);
+                }
             }
 
-            if (pagingController.TotalResults > 0)
+            if (model.Libraries.Count == 0)
             {
-                // bind data
-                rptResults.DataSource = dv;
-                rptResults.DataBind();
-            }
-            else
-            {
-                litError.Text = FormatException(Properties.Resources.ErrorNoLibrariesFound);
+                model.PostcodeLookupError = Properties.Resources.ErrorNoLibrariesFound;
             }
         }
 
@@ -148,9 +105,10 @@ namespace Escc.Libraries.BranchFinder.Website
         /// <param name="dist">A distance, in metres, to build a 'circular' reference area from. Must not exceed 100000m.</param>	
         /// <param name="nearPostcode">A valid postcode.</param>
         /// <returns></returns>
-        public DataSet GetNearestLibrariesRadialFromCms(Double dist, string nearPostcode)
+        [NonAction]
+        public DataSet GetNearestLibrariesRadialFromCms(Double dist, string nearPostcode, Cache cache)
         {
-            DataSet dsCms = GetSiteData();
+            DataSet dsCms = GetSiteData(cache);
             DataSet results;
             var postcodeLookup = new LocateApiPostcodeLookup(new Uri(ConfigurationManager.AppSettings["LocateApiAuthorityUrl"]), ConfigurationManager.AppSettings["LocateApiToken"], new ConfigurationProxyProvider());
             var centreOfPostcode = postcodeLookup.CoordinatesAtCentreOfPostcode(nearPostcode);
@@ -179,7 +137,7 @@ namespace Escc.Libraries.BranchFinder.Website
                 }
             }
 
-             return GenerateDistances(results, centreOfPostcode, distanceCalculator);
+            return GenerateDistances(results, centreOfPostcode, distanceCalculator);
         }
 
         /// <summary>
@@ -191,6 +149,7 @@ namespace Escc.Libraries.BranchFinder.Website
         /// <returns>
         /// An ADO.net DataSet.
         /// </returns>
+        [NonAction]
         public static DataSet GenerateDistances(DataSet ds, LatitudeLongitude centreOfPostcode, DistanceCalculator distanceCalculator)
         {
             if (ds == null) throw new ArgumentNullException("ds");
@@ -205,9 +164,9 @@ namespace Escc.Libraries.BranchFinder.Website
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         var latLongInDataRow = new LatitudeLongitude(Convert.ToDouble(dr["Latitude"].ToString(), CultureInfo.InvariantCulture), Convert.ToDouble(dr["Longitude"].ToString(), CultureInfo.InvariantCulture));
-                        var kilometres = distanceCalculator.DistanceBetweenTwoPoints(centreOfPostcode, latLongInDataRow)/1000;
+                        var kilometres = distanceCalculator.DistanceBetweenTwoPoints(centreOfPostcode, latLongInDataRow) / 1000;
                         dr["Kilometres"] = kilometres;
-                        dr["Miles"] = Math.Round((kilometres*0.6214), 2);
+                        dr["Miles"] = Math.Round((kilometres * 0.6214), 2);
                     }
                     ds.AcceptChanges();
                     return ds;
@@ -222,13 +181,14 @@ namespace Escc.Libraries.BranchFinder.Website
         /// The method which calls the CM Server web service.
         /// </seealso>
         /// <returns>An ADO.net DataSet.</returns>
-        private DataSet GetSiteData()
+        [NonAction]
+        private DataSet GetSiteData(Cache cache)
         {
-            DataSet dsCms = Cache.Get("librarydata") as DataSet;
+            DataSet dsCms = cache["librarydata"] as DataSet;
             if (dsCms == null)
             {
                 dsCms = DataSetFromCms();
-                Cache.Insert("librarydata", dsCms, null, DateTime.Now.AddHours(1), System.Web.Caching.Cache.NoSlidingExpiration);
+                cache.Insert("librarydata", dsCms, null, DateTime.Now.AddHours(1), Cache.NoSlidingExpiration);
             }
             return dsCms;
         }
@@ -240,6 +200,7 @@ namespace Escc.Libraries.BranchFinder.Website
         /// Extracts placeholder content and uses this to create a dataset. Also draws mobile library data from an xml file.
         /// </remarks>
         /// <returns>DataSet of all libraries.</returns>
+        [NonAction]
         public static DataSet DataSetFromCms()
         {
             using (var ds = LibraryDataFormat.CreateDataSet())

@@ -47,6 +47,8 @@ namespace Escc.Libraries.BranchFinder.Website
         /// <exception cref="System.NotImplementedException"></exception>
         public LatitudeLongitude CoordinatesAtCentreOfPostcode(string postcode)
         {
+            if (String.IsNullOrEmpty(postcode)) return null;
+
             try
             {
                 using (var client = new WebClient())

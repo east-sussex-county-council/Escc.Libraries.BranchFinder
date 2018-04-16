@@ -1,0 +1,66 @@
+﻿@model Escc.Libraries.BranchFinder.Website.LibrariesViewModel
+@using System.Configuration
+@using ClientDependency.Core.Mvc
+@using Escc.ClientDependencyFramework
+@{
+    Model.Metadata.Title = "Find your local library";
+    Model.Metadata.Description = "Information about public libraries in East Sussex, their services, opening hours and contact details.";
+    Model.Metadata.Keywords = "Libraries, Branch libraries, Children's libraries, Mobile libraries, Reference libraries,Library facilities, Children's library service, Mobile library services,library, libraries, book, books, reference, talking books, story cassettes, tapes, videos, dvds, music, scores, cds, compact discs, leaflets, local history, local studies, electoral register, registers, display, newspapers, magazines, periodicals, journals, photocopier, people's network, computers, pcs, internet, word processing, cd-roms, housebound, volunteer, children, storytimes, story time, activities, reading game, homework, research, information, enquiries, enquiry service, lifelong learning";
+    Model.Metadata.DateIssued = "2007-01-04";
+    Model.Metadata.IpsvPreferredTerms = "Libraries; Children's libraries; Mobile libraries; Public libraries; Reference libraries";
+    Model.Metadata.IpsvNonPreferredTerms = "Library facilities; Children's library service; Mobile library services; Joining a library";
+    Model.Metadata.LgtlType = "Website facilities;Search results";
+    Model.Metadata.LgslNumbers = "437";
+
+    Html.RequiresCss(CssFileAlias.Resolve("FormsSmall"));
+    Html.RequiresCss(CssFileAlias.Resolve("FormsMedium"), MediaQueryAlias.Resolve("Medium"));
+    Html.RequiresCss(CssFileAlias.Resolve("FormsLarge"), MediaQueryAlias.Resolve("Large"));
+    Html.RequiresJs(JsFileAlias.Resolve("Tips"), 50);
+    Html.RequiresJs(JsFileAlias.Resolve("DescribedByTips"));
+}
+
+<div class="article">
+    <article>
+        <div class="content text-content">
+            <h1>Find your local library</h1>
+
+            <p>
+                There are 17 libraries in East Sussex.
+                Most of our libraries have <a href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/library-services-for-people-with-disabilities/disabled-access/">disabled access</a> for wheelchairs.
+            </p>
+
+            @Html.ValidationSummary()
+            <form action="@Url.Content("~/librarysearch.aspx")" method="GET" class="form simple-form">
+                <label for="postcode">Postcode</label>
+                <input id="postcode" name="pc" class="postcode describedby-tip" aria-describedby="postcode-help" data-tip-positions="top bottom" />
+                <p id="postcode-help">We won't keep or share your postcode.</p>
+                <input type="submit" id="Go" value="Find your nearest" class="button" />
+                <p class="useList note"><span class="or">or</span> use our <a href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/">list of libraries</a></p>
+            </form>
+
+            <img width="455" height="344" alt="Map of libraries" class="mapNavigation" usemap="#Map" src="@Url.Content("~/img/libraries.png")" />
+
+            <map name="Map" id="Map">
+                <area alt="Forest Row" title="Forest Row" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/forestrow/" shape="rect" coords="64,23,133,56" />
+                <area alt="Crowborough" title="Crowborough" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/crowborough/" shape="rect" coords="91,55,176,90" />
+                <area alt="Wadhurst" title="Wadhurst" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/wadhurst/" shape="rect" coords="179,45,248,78" />
+                <area alt="Uckfield" title="Uckfield" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/uckfield/" shape="rect" coords="86,129,153,164" />
+                <area alt="Heathfield" title="Heathfield" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/heathfield/" shape="rect" coords="172,132,252,161" />
+                <area alt="Lewes" title="Lewes" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/lewes/" shape="rect" coords="40,217,84,247" />
+                <area alt="Peacehaven" title="Peacehaven" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/peacehaven/" shape="rect" coords="5,273,73,303" />
+                <area alt="Newhaven" title="Newhaven" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/newhaven/" shape="rect" coords="75,258,139,288" />
+                <area alt="Seaford" title="Seaford" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/seaford/" shape="rect" coords="98,287,166,309" />
+                <area alt="Hailsham" title="Hailsham" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/hailsham/" shape="rect" coords="154,201,214,229" />
+                <area alt="Eastbourne" title="Eastbourne" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/eastbourne/" shape="poly" coords="190,293,203,295,214,305,259,308,260,325,192,323" />
+                <area alt="Hampden Park" title="Hampden Park" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/hampdenpark/" shape="poly" coords="193,276,229,287,307,288,309,304,227,306,187,289" />
+                <area alt="Bexhill" title="Bexhill" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/bexhill/" shape="rect" coords="268,217,310,246" />
+                <area alt="Battle" title="Battle" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/battle/" shape="rect" coords="255,172,309,197" />
+                <area alt="Hollington" title="Hollington" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/hollington/" shape="rect" coords="308,189,369,214" />
+                <area alt="Hastings" title="Hastings" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/hastings/" shape="poly" coords="335,224,348,232,369,237,371,261,313,261,314,236" />
+                <area alt="Rye" title="Rye" href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/rye/" shape="rect" coords="390,145,436,174" />
+            </map>
+
+            @{ Html.RenderPartial("~/Views/EastSussexGovUK/Features/_Share.cshtml", Model); }
+        </div>
+    </article>
+</div>

@@ -179,8 +179,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\map.css" />
     <Content Include="Global.asax" />
-    <Content Include="img\libraries.png" />
+    <Content Include="js\map.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -211,11 +212,6 @@
     <Compile Include="UmbracoLibraryDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\libraries.psd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="img\web.config" />
-    <None Include="img\web.example.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -31,8 +31,11 @@
 
         <p>
             There are <span id="total-libraries">17</span> libraries in East Sussex.
-            Most of our libraries have <a href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/library-services-for-people-with-disabilities/disabled-access/">disabled access</a> for wheelchairs.
+            All our libraries have <a href="/libraries/library-services-for-people-with-disabilities/disabled-access/">disabled access</a> for wheelchairs.
         </p>
+
+        <p>Following changes to the Library and Information Service, seven libraries closed on Saturday 5 May 2018. 
+        These libraries are Langney, Mayfield, Ore, Pevensey Bay, Polegate, Ringmer and Willingdon. The Mobile Library Service is also now closed.</p>
 
         @Html.ValidationSummary()
         <form action="@Url.Content("~/librarysearch.aspx")" method="GET" class="form simple-form">
@@ -40,7 +43,7 @@
             <input id="postcode" name="pc" class="postcode describedby-tip" aria-describedby="postcode-help" data-tip-positions="top bottom" />
             <p id="postcode-help">We won't keep or share your postcode.</p>
             <input type="submit" id="Go" value="Find your nearest" class="button" />
-            <p class="useList note"><span class="or">or</span> use our <a href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/">list of libraries</a></p>
+            <p class="useList note"><span class="or">or</span> use our <a href="/libraries/locations/">list of libraries</a></p>
         </form>
 
         <div id="google-map" data-libraries-url="@ConfigurationManager.AppSettings["LibraryDataUrl"]"></div>

@@ -32,7 +32,7 @@
                 <input id="postcode" name="pc" value="@Model.Postcode" class="postcode describedby-tip" aria-describedby="postcode-help" data-tip-positions="top bottom" />
                 <p id="postcode-help">We won't keep or share your postcode.</p>
                 <input type="submit" id="Go" value="Find your nearest" class="button" />
-                <p class="useList note"><span class="or">or</span> use our <a href="@ConfigurationManager.AppSettings["UmbracoBaseUrl"]/libraries/locations/">list of libraries</a></p>
+                <p class="useList note"><span class="or">or</span> use our <a href="/libraries/locations/">list of libraries</a></p>
             </form>
 
             @foreach (var library in Model.Libraries)

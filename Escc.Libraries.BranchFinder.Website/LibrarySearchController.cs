@@ -1,6 +1,7 @@
 ﻿using Escc.Exceptions.Soap;
 using Escc.Geo;
 using Escc.Net;
+using Escc.Net.Configuration;
 using Escc.Web;
 using Exceptionless;
 using System;

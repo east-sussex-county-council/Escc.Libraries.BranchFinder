@@ -1,16 +1,13 @@
-﻿using Escc.Exceptions.Soap;
+﻿using Escc.EastSussexGovUK.Mvc;
+using Escc.Exceptions.Soap;
 using Escc.Geo;
-using Escc.Net;
 using Escc.Net.Configuration;
-using Escc.Web;
 using Exceptionless;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Globalization;
-using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Caching;
 using System.Web.Mvc;
 using System.Web.Services.Protocols;
@@ -20,7 +17,7 @@ namespace Escc.Libraries.BranchFinder.Website
     public class LibrarySearchController : Controller
     {
         // GET: Default
-        public ActionResult Index(string pc)
+        public async Task<ActionResult> Index(string pc)
         {
             var model = new LibrariesViewModel();
             model.Postcode = pc;
@@ -29,7 +26,7 @@ namespace Escc.Libraries.BranchFinder.Website
             {
                 try
                 {
-                    GetAndBindData(model, HttpContext.Cache);
+                    await GetAndBindData(model, HttpContext.Cache);
                 }
                 catch (SoapException ex)
                 {
@@ -44,6 +41,28 @@ namespace Escc.Libraries.BranchFinder.Website
                 }
             }
 
+            var templateRequest = new EastSussexGovUKTemplateRequest(Request);
+            try
+            {
+                // Do this if you want your page to support web chat. It should, unless you have a reason not to.
+                model.WebChat = await templateRequest.RequestWebChatSettingsAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+            try
+            {
+                // Do this to load the template controls.
+                model.TemplateHtml = await templateRequest.RequestTemplateHtmlAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+
             return View(model);
         }
 
@@ -53,7 +72,7 @@ namespace Escc.Libraries.BranchFinder.Website
         /// The list is sorted in order of ascending distance and filtered on waste type if a type has been selected by the user.
         /// </summary>
         [NonAction]
-        private void GetAndBindData(LibrariesViewModel model, Cache cache)
+        private async Task GetAndBindData(LibrariesViewModel model, Cache cache)
         {
             //clear any error messages
             model.PostcodeLookupError = string.Empty;
@@ -62,7 +81,7 @@ namespace Escc.Libraries.BranchFinder.Website
             Int32 rad = (int)ConvertMilesToMetres(60);
 
             // call the appropriate method which returns a dataset
-            DataSet ds = GetNearestLibrariesRadialFromCms(rad, model.Postcode, cache);
+            DataSet ds = await GetNearestLibrariesRadialFromCms(rad, model.Postcode, cache);
 
             if (ds != null)
             {
@@ -107,12 +126,12 @@ namespace Escc.Libraries.BranchFinder.Website
         /// <param name="nearPostcode">A valid postcode.</param>
         /// <returns></returns>
         [NonAction]
-        public DataSet GetNearestLibrariesRadialFromCms(Double dist, string nearPostcode, Cache cache)
+        public async Task<DataSet> GetNearestLibrariesRadialFromCms(Double dist, string nearPostcode, Cache cache)
         {
-            DataSet dsCms = GetSiteData(cache);
+            DataSet dsCms = await GetSiteData(cache);
             DataSet results;
             var postcodeLookup = new LocateApiPostcodeLookup(new Uri(ConfigurationManager.AppSettings["LocateApiAuthorityUrl"]), ConfigurationManager.AppSettings["LocateApiToken"], new ConfigurationProxyProvider());
-            var centreOfPostcode = postcodeLookup.CoordinatesAtCentreOfPostcode(nearPostcode);
+            var centreOfPostcode = await postcodeLookup.CoordinatesAtCentreOfPostcodeAsync(nearPostcode);
             if (centreOfPostcode == null) return null;
 
             var distanceCalculator = new DistanceCalculator();
@@ -183,12 +202,12 @@ namespace Escc.Libraries.BranchFinder.Website
         /// </seealso>
         /// <returns>An ADO.net DataSet.</returns>
         [NonAction]
-        private DataSet GetSiteData(Cache cache)
+        private async Task<DataSet> GetSiteData(Cache cache)
         {
             DataSet dsCms = cache["librarydata"] as DataSet;
             if (dsCms == null)
             {
-                dsCms = DataSetFromCms();
+                dsCms = await DataSetFromCms(Request.Url);
                 cache.Insert("librarydata", dsCms, null, DateTime.Now.AddHours(1), Cache.NoSlidingExpiration);
             }
             return dsCms;
@@ -202,11 +221,17 @@ namespace Escc.Libraries.BranchFinder.Website
         /// </remarks>
         /// <returns>DataSet of all libraries.</returns>
         [NonAction]
-        public static DataSet DataSetFromCms()
+        public async static Task<DataSet> DataSetFromCms(Uri requestUrl)
         {
             using (var ds = LibraryDataFormat.CreateDataSet())
             {
-                new UmbracoLibraryDataSource().AddLibraries(ds.Tables[0]);
+                if (String.IsNullOrEmpty(ConfigurationManager.AppSettings["LibraryDataUrl"]))
+                {
+                    throw new ConfigurationErrorsException("appSettings/LibraryDataUrl setting not found");
+                }
+                var libraryDataUrl = new Uri(requestUrl, new Uri(ConfigurationManager.AppSettings["LibraryDataUrl"]));
+                var dataSource = new UmbracoLibraryDataSource(libraryDataUrl, new ConfigurationProxyProvider());
+                await dataSource.AddLibraries(ds.Tables[0]);
                 ds.AcceptChanges();
                 return ds;
             }

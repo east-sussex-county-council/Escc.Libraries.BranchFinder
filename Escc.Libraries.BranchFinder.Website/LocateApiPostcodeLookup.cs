@@ -9,6 +9,9 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using Exceptionless;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace Escc.Libraries.BranchFinder.Website
 {
@@ -21,6 +24,7 @@ namespace Escc.Libraries.BranchFinder.Website
         private readonly Uri _locateApiUrl;
         private readonly string _authenticationToken;
         private readonly IProxyProvider _proxyProvider;
+        private static HttpClient _httpClient;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LocateApiPostcodeLookup" /> class.
@@ -44,32 +48,27 @@ namespace Escc.Libraries.BranchFinder.Website
         /// </summary>
         /// <param name="postcode">The postcode.</param>
         /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public LatitudeLongitude CoordinatesAtCentreOfPostcode(string postcode)
+        public async Task<LatitudeLongitude> CoordinatesAtCentreOfPostcodeAsync(string postcode)
         {
             if (String.IsNullOrEmpty(postcode)) return null;
 
             try
             {
-                using (var client = new WebClient())
+                if (_httpClient == null)
                 {
-                    if (_proxyProvider != null)
-                    {
-                        client.Proxy = _proxyProvider.CreateProxy();
-                    }
-                    client.Headers.Add("Authorization", "Bearer " + _authenticationToken);
-
-                    var queryUrl = String.Format(_locateApiUrl.ToString(), Regex.Replace(postcode, "[^A-Za-z0-9]", String.Empty));
-
-                    using (var stream = new StreamReader(client.OpenRead(queryUrl)))
-                    {
-                        var json = stream.ReadToEnd();
-                        var result = JsonConvert.DeserializeObject<LocateApiResult>(json);
-                        return new LatitudeLongitude(result.latitude, result.longitude);
-                    }
+                    var handler = new HttpClientHandler();
+                    handler.Proxy = _proxyProvider?.CreateProxy();
+                    _httpClient = new HttpClient();
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _authenticationToken);
                 }
+
+                var queryUrl = String.Format(_locateApiUrl.ToString(), Regex.Replace(postcode, "[^A-Za-z0-9]", String.Empty));
+
+                var json = await _httpClient.GetStringAsync(queryUrl);
+                var result = JsonConvert.DeserializeObject<LocateApiResult>(json);
+                return new LatitudeLongitude(result.latitude, result.longitude);
             }
-            catch (WebException exception)
+            catch (HttpRequestException exception)
             {
                 if (!exception.Message.Contains("(422) Unprocessable Entity"))
                 {

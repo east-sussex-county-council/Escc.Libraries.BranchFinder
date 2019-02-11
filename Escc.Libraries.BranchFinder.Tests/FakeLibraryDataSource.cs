@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
+using Escc.Libraries.BranchFinder.Website;
 
-namespace Escc.Libraries.BranchFinder.Website
+namespace Escc.Libraries.BranchFinder.Tests
 {
     public class FakeLibraryDataSource : ILibraryDataSource
     {
-        public void AddLibraries(DataTable table)
+        public Task AddLibraries(DataTable table)
         {
             if (table == null) throw new ArgumentNullException("table");
 
@@ -35,6 +37,8 @@ namespace Escc.Libraries.BranchFinder.Website
             crowborough["Longitude"] = "0.158844";
             crowborough["Description"] = "A town library with a range of books, talking books, DVDs, a reference and local studies section and free Internet access. It has disabled access.";
             table.Rows.Add(crowborough);
+
+            return null;
         }
     }
 }

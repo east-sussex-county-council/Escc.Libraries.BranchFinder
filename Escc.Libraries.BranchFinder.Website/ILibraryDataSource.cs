@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Threading.Tasks;
 
 namespace Escc.Libraries.BranchFinder.Website
 {
@@ -11,6 +12,6 @@ namespace Escc.Libraries.BranchFinder.Website
         /// Adds the libraries from the data source.
         /// </summary>
         /// <param name="table">The table.</param>
-        void AddLibraries(DataTable table);
+        Task AddLibraries(DataTable table);
     }
 }

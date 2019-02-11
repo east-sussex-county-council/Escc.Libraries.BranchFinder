@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Escc.Geo;
+using Escc.Libraries.BranchFinder.Website;
 
-namespace Escc.Libraries.BranchFinder.Website
+namespace Escc.Libraries.BranchFinder.Tests
 {
     /// <summary>
     /// A fake postcode lookup implementation which always returns the coordinates of County Hall
     /// </summary>
     public class FakePostcodeLookup : IPostcodeLookup
     {
-        public LatitudeLongitude CoordinatesAtCentreOfPostcode(string postcode)
+        public Task<LatitudeLongitude> CoordinatesAtCentreOfPostcodeAsync(string postcode)
         {
-            return new LatitudeLongitude(50.872066, 0.0010903126);
+            return Task.FromResult(new LatitudeLongitude(50.872066, 0.0010903126));
         }
     }
 }

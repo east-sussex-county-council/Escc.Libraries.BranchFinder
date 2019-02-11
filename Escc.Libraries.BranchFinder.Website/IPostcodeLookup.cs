@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Escc.Geo;
 
 namespace Escc.Libraries.BranchFinder.Website
@@ -12,6 +13,6 @@ namespace Escc.Libraries.BranchFinder.Website
         /// </summary>
         /// <param name="postcode">The postcode.</param>
         /// <returns></returns>
-        LatitudeLongitude CoordinatesAtCentreOfPostcode(string postcode);
+        Task<LatitudeLongitude> CoordinatesAtCentreOfPostcodeAsync(string postcode);
     }
 }

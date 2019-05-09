@@ -6,12 +6,8 @@
 @{
     Model.Metadata.Title = "Find your local library";
     Model.Metadata.Description = "Information about public libraries in East Sussex, their services, opening hours and contact details.";
-    Model.Metadata.Keywords = "Libraries, Branch libraries, Children's libraries, Mobile libraries, Reference libraries,Library facilities, Children's library service, Mobile library services,library, libraries, book, books, reference, talking books, story cassettes, tapes, videos, dvds, music, scores, cds, compact discs, leaflets, local history, local studies, electoral register, registers, display, newspapers, magazines, periodicals, journals, photocopier, people's network, computers, pcs, internet, word processing, cd-roms, housebound, volunteer, children, storytimes, story time, activities, reading game, homework, research, information, enquiries, enquiry service, lifelong learning";
-    Model.Metadata.DateIssued = "2007-01-04";
-    Model.Metadata.IpsvPreferredTerms = "Libraries; Children's libraries; Mobile libraries; Public libraries; Reference libraries";
-    Model.Metadata.IpsvNonPreferredTerms = "Library facilities; Children's library service; Mobile library services; Joining a library";
-    Model.Metadata.LgtlType = "Website facilities;Search results";
-    Model.Metadata.LgslNumbers = "437";
+    Model.Metadata.DateIssued = new DateTimeOffset(new DateTime(2007, 1, 4));
+    Model.Metadata.LocalGovernmentServices.Add(new Uri("http://id.esd.org.uk/service/437"));
 
     Html.RequiresCss(CssFileAlias.Resolve("FormsSmall"));
     Html.RequiresCss(CssFileAlias.Resolve("FormsMedium"), MediaQueryAlias.Resolve("Medium"));

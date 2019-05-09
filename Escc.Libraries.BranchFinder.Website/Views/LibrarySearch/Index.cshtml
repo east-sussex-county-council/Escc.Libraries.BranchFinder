@@ -5,11 +5,8 @@
 @{
     Model.Metadata.Title = "Find your nearest library";
     Model.Metadata.Description = "Type in your postcode to find libraries and mobile library stops close to you.";
-    Model.Metadata.Keywords = "postcode; library; libraries; reference; mobile; search; nearest; closest; children's libraries; books; dvds; music; archives";
-    Model.Metadata.DateCreated = "2004-12-08";
-    Model.Metadata.LgtlType = "Search results";
-    Model.Metadata.IpsvPreferredTerms = "Public libraries;Mobile libraries;Children's libraries;Reference libraries";
-    Model.Metadata.LgslNumbers = "437";
+    Model.Metadata.DateCreated = new DateTimeOffset(new DateTime(2004, 12, 8));
+    Model.Metadata.LocalGovernmentServices.Add(new Uri("http://id.esd.org.uk/service/437"));
 
     Html.RequiresCss(CssFileAlias.Resolve("FormsSmall"));
     Html.RequiresCss(CssFileAlias.Resolve("FormsMedium"), MediaQueryAlias.Resolve("Medium"));

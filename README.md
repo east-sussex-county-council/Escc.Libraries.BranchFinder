@@ -24,12 +24,6 @@ This tool relies on two external tools:
 
 Both of these are implemented as interfaces which can be replaced with alternative implementations.
 
-One more entry in `appSettings` is required in `web.config`, which is a base URL used to link to a page for each library from hard-coded content.
-
-		<appSettings>
-    		<add key="UmbracoBaseUrl" value="https://hostname" />
-		<appSettings>
-
 ## Development setup steps
 
 1. From an Administrator command prompt, run `app-setup-dev.cmd` to set up a site in IIS.

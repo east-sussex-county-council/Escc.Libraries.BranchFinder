@@ -20,7 +20,7 @@ namespace Escc.Libraries.BranchFinder.Website
         public UmbracoLibraryDataSource(Uri libraryDataUrl, IProxyProvider proxyProvider)
         {
             _libraryDataUrl = libraryDataUrl ?? throw new ArgumentNullException(nameof(libraryDataUrl));
-            if (!_libraryDataUrl.IsAbsoluteUri) throw new ArgumentException(nameof(libraryDataUrl), $"{nameof(libraryDataUrl)} must be an absolute URL");
+            if (!_libraryDataUrl.IsAbsoluteUri) throw new ArgumentException($"{nameof(libraryDataUrl)} must be an absolute URL", nameof(libraryDataUrl));
             _proxyProvider = proxyProvider;
         }
 

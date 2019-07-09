@@ -229,7 +229,7 @@ namespace Escc.Libraries.BranchFinder.Website
                 {
                     throw new ConfigurationErrorsException("appSettings/LibraryDataUrl setting not found");
                 }
-                var libraryDataUrl = new Uri(requestUrl, new Uri(ConfigurationManager.AppSettings["LibraryDataUrl"]));
+                var libraryDataUrl = new Uri(requestUrl, new Uri(ConfigurationManager.AppSettings["LibraryDataUrl"], UriKind.RelativeOrAbsolute));
                 var dataSource = new UmbracoLibraryDataSource(libraryDataUrl, new ConfigurationProxyProvider());
                 await dataSource.AddLibraries(ds.Tables[0]);
                 ds.AcceptChanges();

@@ -4,7 +4,7 @@ using System.Web.Routing;
 
 namespace Escc.Libraries.BranchFinder.Website
 {
-    public class RouteConfig
+    public static class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
